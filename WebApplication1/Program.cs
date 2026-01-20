@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Options;
 using System.Data.Common;
 using WebApplication1.Data;
@@ -14,7 +15,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<CompaniesDbContext>(options =>
-    options.UseSqlServer("Server=localhost\\sqlexpress;Database=DB;Trusted_Connection=true;TrustServerCertificate=True;MultipleActiveResultSets=true"));
+    options.UseSqlServer(connString));
 
 builder.Services.AddCors(options =>
 {
@@ -22,6 +23,16 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<CompaniesDbContext>();
+
+    db.Database.EnsureDeleted();
+    db.Database.EnsureCreated();
+    DbInitializer.Initialize(db);
+}
+
 
 
 // Configure the HTTP request pipeline.

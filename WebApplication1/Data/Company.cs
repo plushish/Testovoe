@@ -11,7 +11,7 @@ public partial class Company
 
     public required string NameShort { get; set; } = null!;
 
-    public required int Inn { get; set; }
+    public required string Inn { get; set; }
 
     public string? Ogrn { get; set; }
 

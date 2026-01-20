@@ -55,7 +55,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,NameFull,NameShort,Inn,Ogrn,CreationDate,ChangeDate")] Company company)
+        public async Task<IActionResult> Create([Bind("NameFull,NameShort,Inn,Ogrn,CreationDate,ChangeDate")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveDraft(int Id,string NameFull, string NameShort, int Inn, string Ogrn, DateOnly CreationDate, Company company) /*Edit(int id, [Bind("ID,NameFull,NameShort,Inn,Ogrn,CreationDate")] )*/ 
+        public async Task<IActionResult> SaveDraft(int Id,string NameFull, string NameShort, string Inn, string Ogrn, DateOnly CreationDate, Company company) /*Edit(int id, [Bind("ID,NameFull,NameShort,Inn,Ogrn,CreationDate")] )*/ 
         {
             if (Id != company.Id)
             {
